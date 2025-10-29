@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS notes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  content VARCHAR(255) NOT NULL
+);
+
+INSERT INTO notes (content)
+VALUES ('Hello from MariaDB!');

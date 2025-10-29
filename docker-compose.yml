@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # 1️⃣ Web Frontend
+  web-frontend:
+    build: ./web-frontend-server
+    ports:
+      - "8080:80"
+    depends_on:
+      - application-backend
+    networks:
+      - cloud-net
+
+  # 2️⃣ Application Backend
+  application-backend:
+    build: ./application-backend-server
+    ports:
+      - "8085:8085"
+    networks:
+      - cloud-net
+
+  # 3️⃣ Relational Database (MariaDB)
+  relational-database:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: studentdb
+    volumes:
+      - ./relational-database-server/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - cloud-net
+
+  # 4️⃣ Authentication (Keycloak)
+  authentication-identity:
+    image: quay.io/keycloak/keycloak:24.0.4
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
+    ports:
+      - "8081:8080"
+    networks:
+      - cloud-net
+
+  # 5️⃣ Object Storage (MinIO)
+  object-storage:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: admin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./object-storage-server/data:/data
+    networks:
+      - cloud-net
+
+  # 6️⃣ Internal DNS (Bind9)
+  internal-dns:
+    image: internetsystemsconsortium/bind9:9.18
+    ports:
+      - "1053:53/udp"
+    volumes:
+      - ./internal-dns-server:/etc/bind
+    networks:
+      - cloud-net
+
+  # 7️⃣ Node Exporter (Monitoring)
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - cloud-net
+
+  # 8️⃣ Prometheus
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - node-exporter
+    networks:
+      - cloud-net
+
+  # 9️⃣ Grafana
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - cloud-net
+
+  # 🔟 API Gateway / Reverse Proxy
+  api-gateway:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./api-gateway-proxy-server/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web-frontend
+      - application-backend
+      - authentication-identity
+    networks:
+      - cloud-net
+
+networks:
+  cloud-net:
+    driver: bridge
