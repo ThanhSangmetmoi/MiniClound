@@ -1,9 +1,10 @@
 version: '3.8'
 
 services:
-  # 1️⃣ Web Frontend
+  # 1️⃣ Web Frontend 1
   web-frontend:
     build: ./web-frontend-server
+    container_name: web-frontend-server1
     ports:
       - "8080:80"
     depends_on:
@@ -11,17 +12,28 @@ services:
     networks:
       - cloud-net
 
-  # 2️⃣ Application Backend
+  # 2️⃣ Web Frontend 2 (bản sao để load balancing)
+  web-frontend-2:
+    build: ./web-frontend-server2
+    container_name: web-frontend-server2
+    depends_on:
+      - application-backend
+    networks:
+      - cloud-net
+
+  # 3️⃣ Application Backend (Flask/Python)
   application-backend:
     build: ./application-backend-server
+    container_name: hotensvminiclouddemo-application-backend-1
     ports:
       - "8085:8085"
     networks:
       - cloud-net
 
-  # 3️⃣ Relational Database (MariaDB)
+  # 4️⃣ Relational Database (MariaDB)
   relational-database:
     image: mariadb:10.11
+    container_name: hotensvminiclouddemo-relational-database-1
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: studentdb
@@ -32,9 +44,10 @@ services:
     networks:
       - cloud-net
 
-  # 4️⃣ Authentication (Keycloak)
+  # 5️⃣ Authentication (Keycloak)
   authentication-identity:
     image: quay.io/keycloak/keycloak:24.0.4
+    container_name: hotensvminiclouddemo-authentication-identity-1
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -44,9 +57,10 @@ services:
     networks:
       - cloud-net
 
-  # 5️⃣ Object Storage (MinIO)
+  # 6️⃣ Object Storage (MinIO)
   object-storage:
     image: minio/minio
+    container_name: hotensvminiclouddemo-object-storage-1
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: admin
@@ -59,9 +73,10 @@ services:
     networks:
       - cloud-net
 
-  # 6️⃣ Internal DNS (Bind9)
+  # 7️⃣ Internal DNS (Bind9)
   internal-dns:
     image: internetsystemsconsortium/bind9:9.18
+    container_name: hotensvminiclouddemo-internal-dns-1
     ports:
       - "1053:53/udp"
     volumes:
@@ -69,17 +84,19 @@ services:
     networks:
       - cloud-net
 
-  # 7️⃣ Node Exporter (Monitoring)
+  # 8️⃣ Node Exporter (Monitoring)
   node-exporter:
     image: prom/node-exporter
+    container_name: hotensvminiclouddemo-node-exporter-1
     ports:
       - "9100:9100"
     networks:
       - cloud-net
 
-  # 8️⃣ Prometheus
+  # 9️⃣ Prometheus
   prometheus:
     image: prom/prometheus
+    container_name: hotensvminiclouddemo-prometheus-1
     volumes:
       - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
@@ -89,23 +106,28 @@ services:
     networks:
       - cloud-net
 
-  # 9️⃣ Grafana
+  # 🔟 Grafana
   grafana:
     image: grafana/grafana
+    container_name: hotensvminiclouddemo-grafana-1
     ports:
       - "3000:3000"
+    depends_on:
+      - prometheus
     networks:
       - cloud-net
 
-  # 🔟 API Gateway / Reverse Proxy
+  # 1️⃣1️⃣ API Gateway / Reverse Proxy (Load Balancer)
   api-gateway:
-    image: nginx:latest
+    build: ./api-gateway-proxy-server
+    container_name: hotensvminiclouddemo-api-gateway-1
     ports:
       - "80:80"
     volumes:
-      - ./api-gateway-proxy-server/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./api-gateway-proxy-server/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - web-frontend
+      - web-frontend-2
       - application-backend
       - authentication-identity
     networks:
