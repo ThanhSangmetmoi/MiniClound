@@ -68,5 +68,11 @@ def delete_student(id):
     conn.close()
     return jsonify({"message": f"Student {id} deleted successfully!"})
 
+@app.route('/secure')
+def secure_route():
+    # Tạm thời chúng ta chỉ cần trả về 1 tin nhắn
+    # Bước tiếp theo sẽ là kiểm tra token ở đây
+    return "✅ Tuyệt vời! Bạn đã truy cập được endpoint /secure!"
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8085)
