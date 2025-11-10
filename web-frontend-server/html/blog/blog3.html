@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kinh nghiệm học tập hiệu quả - MyMiniCloud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .meta {
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+        
+        p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .tip-card {
+            background: linear-gradient(135deg, #e0f7ff 0%, #d4f1ff 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+        }
+        
+        .tip-card h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .tip-card p {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .highlight h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .schedule {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .schedule h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #4facfe;
+        }
+        
+        .schedule-time {
+            font-weight: bold;
+            color: #0066cc;
+            min-width: 100px;
+        }
+        
+        .schedule-activity {
+            color: #555;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+        
+        .image-banner {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .image-banner img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .tips-grid,
+            .image-banner {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-image {
+                height: 250px;
+            }
+            
+            .schedule-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .schedule-time {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=600&fit=crop" alt="Học tập" class="hero-image">
+        
+        <div class="content">
+            <div class="icon">📚</div>
+            <h1>Kinh nghiệm học tập hiệu quả</h1>
+            <div class="meta">📅 Ngày đăng: 09/11/2025 | ⏱️ 7 phút đọc</div>
+            
+            <p>
+                Mỗi ngày tôi đều cố gắng lập kế hoạch học tập, đặt mục tiêu và tự thưởng khi hoàn thành. 
+                Qua nhiều năm học tập, tôi đã rút ra được những phương pháp hiệu quả giúp tối ưu hóa 
+                thời gian và nâng cao chất lượng học tập.
+            </p>
+            
+            <p>
+                Học tập không chỉ là việc ngồi trước sách vở suốt ngày. Điều quan trọng là hiểu được 
+                bản thân mình học tốt nhất khi nào, bằng cách nào, và làm thế nào để duy trì động lực 
+                trong suốt hành trình dài.
+            </p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🎯 Đặt mục tiêu rõ ràng</h3>
+                    <p>
+                        Chia nhỏ mục tiêu lớn thành các nhiệm vụ nhỏ hàng ngày. 
+                        Điều này giúp bạn không bị overwhelm và dễ dàng theo dõi tiến độ.
+                    </p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>⏰ Quản lý thời gian</h3>
+                    <p>
+                        Sử dụng kỹ thuật Pomodoro: học 25 phút, nghỉ 5 phút. 
+                        Sau 4 chu kỳ, nghỉ dài 15-30 phút để đầu óc thư giãn.
+                    </p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>📝 Ghi chú hiệu quả</h3>
+                    <p>
+                        Áp dụng phương pháp Cornell Notes hoặc Mind Mapping. 
+                        Ghi chú bằng tay giúp ghi nhớ tốt hơn gõ máy tính.
+                    </p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>🔄 Ôn tập định kỳ</h3>
+                    <p>
+                        Sử dụng kỹ thuật Spaced Repetition. Ôn lại sau 1 ngày, 
+                        3 ngày, 1 tuần, và 1 tháng để nhớ lâu dài.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="image-banner">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop" alt="Học bài">
+                <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=400&h=300&fit=crop" alt="Thư viện">
+            </div>
+            
+            <div class="highlight">
+                <h3>💡 Bí quyết thành công</h3>
+                <p>
+                    "Học tập là một marathon, không phải sprint. Quan trọng là sự kiên trì 
+                    mỗi ngày, không phải cố gắng học tất cả trong một đêm. Hãy tập trung vào 
+                    tiến bộ, không phải sự hoàn hảo."
+                </p>
+            </div>
+            
+            <div class="schedule">
+                <h3>📅 Lịch học mẫu của tôi</h3>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">06:00 - 07:00</div>
+                    <div class="schedule-activity">Thức dậy sớm, tập thể dục nhẹ và ăn sáng</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">07:00 - 09:00</div>
+                    <div class="schedule-activity">Học môn khó nhất khi đầu óc còn tỉnh táo</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">09:00 - 09:30</div>
+                    <div class="schedule-activity">Nghỉ giải lao, ăn nhẹ</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">09:30 - 12:00</div>
+                    <div class="schedule-activity">Tiếp tục học và làm bài tập</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">12:00 - 13:30</div>
+                    <div class="schedule-activity">Ăn trưa và nghỉ ngơi</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">14:00 - 17:00</div>
+                    <div class="schedule-activity">Học nhóm hoặc ôn tập</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">19:00 - 21:00</div>
+                    <div class="schedule-activity">Ôn lại kiến thức đã học trong ngày</div>
+                </div>
+                
+                <div class="schedule-item">
+                    <div class="schedule-time">21:00 - 22:00</div>
+                    <div class="schedule-activity">Thư giãn, đọc sách hoặc nghe nhạc</div>
+                </div>
+            </div>
+            
+            <p>
+                Một yếu tố quan trọng nữa là tìm được môi trường học tập phù hợp. 
+                Một số người học tốt trong im lặng tuyệt đối, trong khi người khác lại 
+                tập trung hơn với nhạc nền nhẹ nhàng. Hãy thử nghiệm để tìm ra điều gì phù hợp với bạn.
+            </p>
+            
+            <p>
+                Đừng quên chăm sóc sức khỏe thể chất và tinh thần. Ngủ đủ giấc, ăn uống 
+                điều độ và tập thể dục đều đặn. Một cơ thể khỏe mạnh là nền tảng cho 
+                một tâm trí minh mẫn và khả năng học tập tốt.
+            </p>
+            
+            <p>
+                Cuối cùng, hãy nhớ rằng mỗi người có phương pháp học tập riêng. 
+                Những gì tôi chia sẻ ở đây là những kinh nghiệm cá nhân. 
+                Hãy điều chỉnh và tìm ra phong cách học tập phù hợp nhất với bạn!
+            </p>
+            
+            <a href="/index.html" class="back-button">⬅️ Quay lại trang chính</a>
+        </div>
+    </div>
+</body>
+</html>

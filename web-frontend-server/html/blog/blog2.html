@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chuyến đi Đà Lạt đáng nhớ - MyMiniCloud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .meta {
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+        
+        p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .highlight h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        
+        .places {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .places h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .places ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .places li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 5px;
+            color: #555;
+        }
+        
+        .places li:before {
+            content: '📍 ';
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&h=600&fit=crop" alt="Đà Lạt" class="hero-image">
+        
+        <div class="content">
+            <div class="icon">✈️</div>
+            <h1>Chuyến đi Đà Lạt đáng nhớ</h1>
+            <div class="meta">📅 Ngày đăng: 08/11/2025 | ⏱️ 6 phút đọc</div>
+            
+            <p>
+                Đà Lạt là nơi tôi yêu thích nhất, với khí hậu mát mẻ và cảnh đẹp như tranh vẽ. 
+                Chuyến đi này đã để lại trong tôi rất nhiều kỷ niệm đẹp, từ những buổi sáng sương mù 
+                phủ kín thung lũng, đến những chiều hoàng hôn trên đồi thông.
+            </p>
+            
+            <p>
+                Tôi bắt đầu hành trình bằng chuyến xe bus đêm từ Sài Gòn. Khi xe leo dốc lên cao nguyên, 
+                không khí dần trở nên se lạnh. Cảm giác đó thật tuyệt vời - như được chào đón bởi thiên nhiên.
+            </p>
+            
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400&h=300&fit=crop" alt="Hồ Xuân Hương">
+                <img src="https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=400&h=300&fit=crop" alt="Vườn hoa">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop" alt="Núi rừng">
+            </div>
+            
+            <div class="highlight">
+                <h3>🌸 Cảm nhận của tôi</h3>
+                <p>
+                    "Đà Lạt không chỉ đẹp ở phong cảnh, mà còn ở không khí trong lành, 
+                    con người thân thiện và nhịp sống chậm rãi khiến bạn muốn dừng lại và tận hưởng từng khoảnh khắc."
+                </p>
+            </div>
+            
+            <div class="places">
+                <h3>📸 Những địa điểm không thể bỏ qua</h3>
+                <ul>
+                    <li>Hồ Xuân Hương - Biểu tượng của thành phố</li>
+                    <li>Đồi Cù Lần - Hoàng hôn tuyệt đẹp</li>
+                    <li>Vườn hoa thành phố - Thiên đường sắc màu</li>
+                    <li>Chợ Đà Lạt - Trải nghiệm văn hóa địa phương</li>
+                    <li>Thác Datanla - Mạo hiểm với cáp treo</li>
+                    <li>Quán café Mê Linh - View đẹp nhất thành phố</li>
+                </ul>
+            </div>
+            
+            <p>
+                Điều tôi thích nhất là những buổi sáng sớm, khi sương mù còn đang bao phủ. 
+                Tôi thường đi dạo quanh Hồ Xuân Hương, hít thở không khí trong lành và ngắm 
+                những bông hoa dại bên đường. Đó là những khoảnh khắc bình yên nhất.
+            </p>
+            
+            <p>
+                Món ăn ở Đà Lạt cũng thật đặc biệt. Từ bánh tráng nướng ở chợ đêm, 
+                lẩu gà lá é, đến những món Tây ấm áp trong các quán café. 
+                Mỗi món ăn đều mang hương vị riêng của núi rừng Tây Nguyên.
+            </p>
+            
+            <p>
+                Chuyến đi kết thúc nhưng kỷ niệm vẫn còn mãi. Tôi hứa sẽ quay lại Đà Lạt, 
+                nơi mà thời gian như trôi chậm hơn, và tâm hồn được nghỉ ngơi.
+            </p>
+            
+            <a href="/index.html" class="back-button">⬅️ Quay lại trang chính</a>
+        </div>
+    </div>
+</body>
+</html>
