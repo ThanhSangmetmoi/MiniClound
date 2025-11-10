@@ -12,7 +12,7 @@ services:
     networks:
       - cloud-net
 
-  # 2️⃣ Web Frontend 2 (bản sao để load balancing)
+  # 2️⃣ Web Frontend 2
   web-frontend-2:
     build: ./web-frontend-server2
     container_name: web-frontend-server2
@@ -21,7 +21,7 @@ services:
     networks:
       - cloud-net
 
-  # 3️⃣ Application Backend (Flask/Python)
+  # 3️⃣ Application Backend (Flask)
   application-backend:
     build: ./application-backend-server
     container_name: hotensvminiclouddemo-application-backend-1
@@ -29,20 +29,24 @@ services:
       - "8085:8085"
     networks:
       - cloud-net
+    depends_on:
+      - relational-database
 
   # 4️⃣ Relational Database (MariaDB)
   relational-database:
-    image: mariadb:10.11
+    build: ./relational-database-server
     container_name: hotensvminiclouddemo-relational-database-1
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: studentdb
-    volumes:
-      - ./relational-database-server/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3307:3306"
     networks:
       - cloud-net
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./relational-database-server/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./relational-database-server/my.cnf:/etc/mysql/conf.d/my.cnf
 
   # 5️⃣ Authentication (Keycloak)
   authentication-identity:
@@ -84,7 +88,7 @@ services:
     networks:
       - cloud-net
 
-  # 8️⃣ Node Exporter (Monitoring)
+  # 8️⃣ Node Exporter
   node-exporter:
     image: prom/node-exporter
     container_name: hotensvminiclouddemo-node-exporter-1
@@ -117,7 +121,7 @@ services:
     networks:
       - cloud-net
 
-  # 1️⃣1️⃣ API Gateway / Reverse Proxy (Load Balancer)
+  # 1️⃣1️⃣ API Gateway
   api-gateway:
     build: ./api-gateway-proxy-server
     container_name: hotensvminiclouddemo-api-gateway-1
@@ -132,6 +136,9 @@ services:
       - authentication-identity
     networks:
       - cloud-net
+
+volumes:
+  db_data:
 
 networks:
   cloud-net:
