@@ -21,18 +21,21 @@ services:
     networks:
       - cloud-net
 
-  # 3️⃣ Application Backend (Flask)
+  # 3️⃣ Application Backend (Flask) - Gán IP tĩnh
   application-backend:
     build: ./application-backend-server
     container_name: hotensvminiclouddemo-application-backend-1
     ports:
-      - "8085:8085"
+      # Cổng container là 8081 (theo app.py), map ra 8085
+      - "8085:8081" 
     networks:
-      - cloud-net
+      cloud-net:
+        # IP tĩnh khớp với file db.cloud.local
+        ipv4_address: 10.10.10.20 
     depends_on:
       - relational-database
 
-  # 4️⃣ Relational Database (MariaDB)
+  # 4️⃣ Relational Database (MariaDB) - Gán IP tĩnh (ví dụ .13)
   relational-database:
     build: ./relational-database-server
     container_name: hotensvminiclouddemo-relational-database-1
@@ -42,13 +45,14 @@ services:
     ports:
       - "3307:3306"
     networks:
-      - cloud-net
+      cloud-net:
+        ipv4_address: 10.10.10.13
     volumes:
       - db_data:/var/lib/mysql
       - ./relational-database-server/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./relational-database-server/my.cnf:/etc/mysql/conf.d/my.cnf
 
-  # 5️⃣ Authentication (Keycloak)
+  # 5️⃣ Authentication (Keycloak) - Gán IP tĩnh
   authentication-identity:
     image: quay.io/keycloak/keycloak:24.0.4
     container_name: hotensvminiclouddemo-authentication-identity-1
@@ -59,9 +63,11 @@ services:
     ports:
       - "8081:8080"
     networks:
-      - cloud-net
+      cloud-net:
+        # IP tĩnh khớp với file db.cloud.local
+        ipv4_address: 10.10.10.12
 
-  # 6️⃣ Object Storage (MinIO)
+  # 6️⃣ Object Storage (MinIO) - Gán IP tĩnh
   object-storage:
     image: minio/minio
     container_name: hotensvminiclouddemo-object-storage-1
@@ -75,18 +81,30 @@ services:
     volumes:
       - ./object-storage-server/data:/data
     networks:
-      - cloud-net
+      cloud-net:
+        # IP tĩnh khớp với file db.cloud.local
+        ipv4_address: 10.10.10.14
 
+  # 7️⃣ Internal DNS (Bind9)
   # 7️⃣ Internal DNS (Bind9)
   internal-dns:
     image: internetsystemsconsortium/bind9:9.18
     container_name: hotensvminiclouddemo-internal-dns-1
     ports:
       - "1053:53/udp"
+      - "1053:53/tcp"
+    
+    # --- PHẢI GIỐNG NHƯ THẾ NÀY ---
+    # Mount từng file, không mount cả thư mục
     volumes:
-      - ./internal-dns-server:/etc/bind
+      - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
+      - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
+    # ----------------------------
+
     networks:
-      - cloud-net
+      cloud-net:
+        ipv4_address: 10.10.10.10
+    restart: always
 
   # 8️⃣ Node Exporter
   node-exporter:
@@ -140,6 +158,10 @@ services:
 volumes:
   db_data:
 
+# Cấu hình mạng với Subnet 10.10.10.0/24
 networks:
   cloud-net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
