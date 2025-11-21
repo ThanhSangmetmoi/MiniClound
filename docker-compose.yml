@@ -4,7 +4,8 @@ services:
   # 1️⃣ Web Frontend 1
   web-frontend:
     build: ./web-frontend-server
-    container_name: web-frontend-server1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-web-frontend-1
     ports:
       - "8080:80"
     depends_on:
@@ -15,30 +16,31 @@ services:
   # 2️⃣ Web Frontend 2
   web-frontend-2:
     build: ./web-frontend-server2
-    container_name: web-frontend-server2
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-web-frontend-2
     depends_on:
       - application-backend
     networks:
       - cloud-net
 
-  # 3️⃣ Application Backend (Flask) - Gán IP tĩnh
+  # 3️⃣ Application Backend (Flask)
   application-backend:
     build: ./application-backend-server
-    container_name: hotensvminiclouddemo-application-backend-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-application-backend-1
     ports:
-      # Cổng container là 8081 (theo app.py), map ra 8085
       - "8085:8081" 
     networks:
       cloud-net:
-        # IP tĩnh khớp với file db.cloud.local
         ipv4_address: 10.10.10.20 
     depends_on:
       - relational-database
 
-  # 4️⃣ Relational Database (MariaDB) - Gán IP tĩnh (ví dụ .13)
+  # 4️⃣ Relational Database (MariaDB)
   relational-database:
     build: ./relational-database-server
-    container_name: hotensvminiclouddemo-relational-database-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-relational-database-1
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: studentdb
@@ -52,10 +54,11 @@ services:
       - ./relational-database-server/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./relational-database-server/my.cnf:/etc/mysql/conf.d/my.cnf
 
-  # 5️⃣ Authentication (Keycloak) - Gán IP tĩnh
+  # 5️⃣ Authentication (Keycloak)
   authentication-identity:
     image: quay.io/keycloak/keycloak:24.0.4
-    container_name: hotensvminiclouddemo-authentication-identity-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-authentication-identity-1
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -64,13 +67,13 @@ services:
       - "8081:8080"
     networks:
       cloud-net:
-        # IP tĩnh khớp với file db.cloud.local
         ipv4_address: 10.10.10.12
 
-  # 6️⃣ Object Storage (MinIO) - Gán IP tĩnh
+  # 6️⃣ Object Storage (MinIO)
   object-storage:
     image: minio/minio
-    container_name: hotensvminiclouddemo-object-storage-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-object-storage-1
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: admin
@@ -82,25 +85,19 @@ services:
       - ./object-storage-server/data:/data
     networks:
       cloud-net:
-        # IP tĩnh khớp với file db.cloud.local
         ipv4_address: 10.10.10.14
 
   # 7️⃣ Internal DNS (Bind9)
-  # 7️⃣ Internal DNS (Bind9)
   internal-dns:
     image: internetsystemsconsortium/bind9:9.18
-    container_name: hotensvminiclouddemo-internal-dns-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-internal-dns-1
     ports:
       - "1053:53/udp"
       - "1053:53/tcp"
-    
-    # --- PHẢI GIỐNG NHƯ THẾ NÀY ---
-    # Mount từng file, không mount cả thư mục
     volumes:
       - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
       - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
-    # ----------------------------
-
     networks:
       cloud-net:
         ipv4_address: 10.10.10.10
@@ -109,7 +106,8 @@ services:
   # 8️⃣ Node Exporter
   node-exporter:
     image: prom/node-exporter
-    container_name: hotensvminiclouddemo-node-exporter-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-node-exporter-1
     ports:
       - "9100:9100"
     networks:
@@ -118,7 +116,8 @@ services:
   # 9️⃣ Prometheus
   prometheus:
     image: prom/prometheus
-    container_name: hotensvminiclouddemo-prometheus-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-prometheus-1
     volumes:
       - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
@@ -131,7 +130,8 @@ services:
   # 🔟 Grafana
   grafana:
     image: grafana/grafana
-    container_name: hotensvminiclouddemo-grafana-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-grafana-1
     ports:
       - "3000:3000"
     depends_on:
@@ -142,7 +142,8 @@ services:
   # 1️⃣1️⃣ API Gateway
   api-gateway:
     build: ./api-gateway-proxy-server
-    container_name: hotensvminiclouddemo-api-gateway-1
+    # Đã đổi tên container
+    container_name: nguyenthanhsang_nguyenhoangnhatminicloud-api-gateway-1
     ports:
       - "80:80"
     volumes:
@@ -158,7 +159,6 @@ services:
 volumes:
   db_data:
 
-# Cấu hình mạng với Subnet 10.10.10.0/24
 networks:
   cloud-net:
     driver: bridge

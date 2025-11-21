@@ -1,24 +1,21 @@
 $TTL 604800
 @   IN  SOA ns.cloud.local. admin.cloud.local. (
-          7          ; Serial (Bạn nên tăng số này mỗi khi sửa file)
-          604800     ; Refresh
-          86400      ; Retry
-          2419200    ; Expire
-          604800 )   ; Negative Cache TTL
+              11         ; Serial (Tôi đã tăng lên 11)
+              604800     ; Refresh
+              86400      ; Retry
+              2419200    ; Expire
+              604800 )   ; Negative Cache TTL
 
-; Name servers - Trỏ về chính IP của DNS Server
+; Name servers
 @       IN  NS      ns.cloud.local.
 
-; --- ĐÂY LÀ CHỖ SỬA ---
-; ns (Name Server) PHẢI trỏ về IP tĩnh của container (10.10.10.10)
-ns                              IN  A   10.10.10.10
+; IP của chính DNS Server
+ns                      IN  A   10.10.10.10
 
-; --- YÊU CẦU BÀI 6 MỞ RỘNG ---
-; 1. App Backend (Yêu cầu chính)
-app-backend.cloud.local.        IN  A   10.10.10.20
+; --- CƠ BẢN  ---
+web-frontend-server.cloud.local.     IN  A   10.10.10.10
 
-; 2. Keycloak (Bổ sung)
-keycloak.cloud.local.           IN  A   10.10.10.12
-
-; 3. MinIO (Bổ sung)
-minio.cloud.local.              IN  A   10.10.10.14
+; --- MỞ RỘNG ---
+app-backend.cloud.local.    IN  A   10.10.10.20
+keycloak.cloud.local.       IN  A   10.10.10.12
+minio.cloud.local.          IN  A   10.10.10.14
